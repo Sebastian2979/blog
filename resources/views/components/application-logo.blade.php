@@ -1,0 +1,1 @@
+<img src="/pumo-logo-yellow.svg" class="h-10"/>
