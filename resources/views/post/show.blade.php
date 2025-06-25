@@ -13,7 +13,7 @@
                                 {{ $post->user->name }}
                              </a>
                             @auth
-                            @if ($post->user_id !== Auth::user()->id)
+                            @if (Auth::user() && Auth::user()->id !== $post->user_id)
                                 &middot;
                                 <button x-text="following ? 'Unfollow' : 'Follow'" :class="following ? 'text-red-600' : 'text-emerald-600'" @click="follow()"></button> 
                             @endif

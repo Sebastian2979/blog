@@ -6,9 +6,7 @@ use App\Http\Requests\PostCreateRequest;
 use App\Http\Requests\PostUpdateRequest;
 use App\Models\Post;
 use App\Models\Category;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
 
 class PostController extends Controller
@@ -53,9 +51,7 @@ class PostController extends Controller
     public function store(PostCreateRequest $request)
     {
         $data = $request->validated();
-
         $data['user_id'] = Auth::id();
-
         $post = Post::create($data);
         $post->addMediaFromRequest('image')->toMediaCollection();
         return redirect()->route('dashboard');
@@ -120,7 +116,7 @@ class PostController extends Controller
 
         $query = $category->posts()
             ->with(['user', 'media'])
-            //->where('published_at', '<=', now())
+            ->where('published_at', '<=', now())
             ->withCount('claps')
             ->latest();
 

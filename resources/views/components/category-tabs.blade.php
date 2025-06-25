@@ -1,4 +1,4 @@
-<ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400 justify-center">
+<ul class="sm:flex sm:flex-wrap text-sm font-medium text-center text-gray-500 sm:justify-center">
     <li class="me-2">
         <a href="{{ route('dashboard') }}" 
         class="{{ request('category') 

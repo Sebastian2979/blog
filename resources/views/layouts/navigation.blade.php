@@ -11,7 +11,7 @@
                 </div>             
             </div>
 
-            <div class="flex">
+            <div class="flex gap-4">
                 @auth
                     <a href="{{ route('post.create') }}" class="flex items-center">
                         <x-primary-button>
