@@ -6,6 +6,7 @@ use App\Http\Requests\PostCreateRequest;
 use App\Http\Requests\PostUpdateRequest;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -62,8 +63,11 @@ class PostController extends Controller
      */
     public function show(string $username, Post $post)
     {
+        $comments = $post->comments()->with('user')->latest()->get();
+
         return view('post.show', [
             'post'=> $post,
+            'comments' => $comments
         ]);
     }
 

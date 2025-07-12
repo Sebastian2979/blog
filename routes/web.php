@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClapController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
@@ -11,6 +12,7 @@ Route::get('/@{user:username}', [PublicProfileController::class,'show'])->name('
 Route::get('/', [PostController::class, 'index'])->name('dashboard');
 Route::get('/@{username}/{post:slug}', [PostController::class,'show'])->name('post.show');
 Route::get('/category/{category}', [PostController::class, 'category'])->name('post.byCategory');
+
 
 Route::middleware('auth')->group(function () {
 
@@ -24,6 +26,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/my-posts', [PostController::class,'myPosts'])->name('myPosts');
     Route::post('/follow/{user}', [FollowerController::class, 'followUnfollow'])->name('follow');
     Route::post('/clap/{post}', [ClapController::class, 'clap'])->name('clap');
+    Route::post('/comment/create', [CommentController::class, 'store'])->name('comment.store');
+    Route::delete('/comment/{comment}/destroy', [CommentController::class, 'destroy'])->name('comment.destroy');
 });
 
 Route::middleware('auth')->group(function () {
