@@ -17,8 +17,8 @@
                     </h5>
                 </a>
             </div>
-            <div class="mb-3 font-normal text-gray-700">
-                {{ Str::words($post->content, 20) }}
+            <div class="mb-3 font-normal text-gray-700 prose max-w-none">
+                {!! Str::words($post->content, 20) !!}
             </div>
             <!-- User Published Likes Section  -->
             <div class="text-sm text-gray-400 flex gap-4 items-center">

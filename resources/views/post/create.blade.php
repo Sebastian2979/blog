@@ -48,7 +48,7 @@
                     </div>
 
                     <div class="mt-4">
-                        <x-primary-button>Submit</x-primary-button>
+                        <x-primary-button>Save Post</x-primary-button>
                     </div>    
                 </form>
             </div>

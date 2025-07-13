@@ -51,8 +51,8 @@
                 <!-- Content Section Begin -->
                 <div class="mt-4">
                     <img src="{{ $post->imageUrl() }}" alt="{{ $post->title }}" class="w-full">
-                    <div class="mt-4">
-                        {{ $post->content }}
+                    <div class="prose max-w-none mt-4">
+                        {!! $post->content !!}
                     </div>
                 </div>
                 <!-- Content Section End -->
