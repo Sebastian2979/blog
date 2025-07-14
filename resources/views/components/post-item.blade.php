@@ -3,7 +3,7 @@
         <a href="{{ route('post.show', [
             'username' => $post->user->username,
             'post' => $post->slug]) }}">
-            <img class="object-cover w-full h-96 sm:w-48 sm:h-48 sm:rounded-l-lg" src="{{ $post->imageUrl() }}" alt="{{ $post->title }}" />
+            <img class="object-cover w-full h-96 sm:w-48 sm:h-48 sm:rounded-l-lg" src="{{ $post->imageUrl('preview') }}" alt="{{ $post->title }}" />
         </a>
         <div class="p-4">
             <div href="{{ route('post.show', [

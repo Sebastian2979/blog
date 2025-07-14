@@ -7,6 +7,8 @@ use App\Http\Requests\PostUpdateRequest;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Comment;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -55,6 +57,17 @@ class PostController extends Controller
         $data['user_id'] = Auth::id();
         $post = Post::create($data);
         $post->addMediaFromRequest('image')->toMediaCollection();
+        // TinyMCE-Uploads vom User an den Post verschieben
+        $user = User::find(Auth::id());
+        $user->media()
+            ->where('collection_name', 'tinymce-temp')
+            ->each(function ($media) use ($post) {
+                $media->update([
+                    'model_type' => Post::class,
+                    'model_id' => $post->id,
+                    'collection_name' => 'content-images',
+                ]);
+            });
         return redirect()->route('dashboard');
     }
 
@@ -99,6 +112,17 @@ class PostController extends Controller
         if($data['image'] ?? false){
             $post->addMediaFromRequest('image')->toMediaCollection();
         }
+        // TinyMCE-Uploads vom User an den Post verschieben
+        $user = User::find(Auth::id());
+        $user->media()
+            ->where('collection_name', 'tinymce-temp')
+            ->each(function ($media) use ($post) {
+                $media->update([
+                    'model_type' => Post::class,
+                    'model_id' => $post->id,
+                    'collection_name' => 'content-images',
+                ]);
+            });
         return redirect()->route('myPosts');
     }
 
@@ -148,5 +172,19 @@ class PostController extends Controller
         return view('post.index', [
             'posts' => $posts,
         ]);
+    }
+
+    public function tinymceUpload(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|image|max:2048', // Max. 2MB
+        ]);
+       
+        // Bild dem User zuordnen
+        $media = $request->user()->addMediaFromRequest('file')->toMediaCollection('tinymce-temp');
+        
+        return response()->json([
+            'location' => $media->getUrl()
+        ], 200);
     }
 }

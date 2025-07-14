@@ -56,13 +56,17 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
         $this->addMediaConversion('avatar')
             ->width( 128)
             ->crop(128, 128)
-            ->nonQueued();
+            ->nonQueued()
+            ->performOnCollections('avatar');
     }
 
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('avatar')
             ->singleFile();
+
+        $this->addMediaCollection('tinymce-temp')
+        ->useDisk('public'); // Optional: expliziter Disk
     }
 
     public function posts()
