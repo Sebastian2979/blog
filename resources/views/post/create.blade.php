@@ -19,6 +19,13 @@
                             :value="old('title')" autofocus />
                         <x-input-error :messages="$errors->get('title')" class="mt-2" />
                     </div>
+                    <!-- Subtitle -->
+                    <div class="mt-4">
+                        <x-input-label for="subtitle" :value="__('Subtitle')" />
+                        <x-text-input id="subtitle" class="block mt-1 w-full" type="text" name="subtitle"
+                            :value="old('subtitle')" autofocus />
+                        <x-input-error :messages="$errors->get('subtitle')" class="mt-2" />
+                    </div>
                     <!-- Category -->
                     <div class="mt-4">
                         <x-input-label for="category_id" :value="__('Category')" />

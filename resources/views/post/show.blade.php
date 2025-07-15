@@ -2,7 +2,8 @@
     <div class="py-4">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                <h1 class="text-3xl mb-4">{{ $post->title }}</h1>
+                <h1 class="text-3xl mb-1">{{ $post->title }}</h1>
+                <h1 class="text-2xl mb-4 text-gray-700">{{ $post->subtitle }}</h1>
                 <!-- User Avatar -->
                 <div class="flex gap-4">
                     <x-user-avatar :user="$post->user" />

@@ -77,7 +77,7 @@ class PostController extends Controller
     public function show(string $username, Post $post)
     {
         $comments = $post->comments()->with('user')->latest()->get();
-
+        
         return view('post.show', [
             'post'=> $post,
             'comments' => $comments
@@ -92,6 +92,7 @@ class PostController extends Controller
         if($post->user_id !== Auth::id()){
             abort(403);
         }
+        
         $categories = Category::get();
         return view('post.edit', [
             'post' => $post,

@@ -24,12 +24,12 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $categories = [
-            'Technology',
-            'Health',
-            'Science',
-            'Sports',
-            'Politics',
-            'Entertainment',
+            'Lifestyle',
+            'Reisen',
+            'Essen & Getränke',
+            'Technologie',
+            'Gesundheit & Fitness',
+            'Unterhaltung',
         ];
 
         foreach ($categories as $category) {

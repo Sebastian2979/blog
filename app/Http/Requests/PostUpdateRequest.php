@@ -24,6 +24,7 @@ class PostUpdateRequest extends FormRequest
         return [
             'image'=> ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'title'=> 'required',
+            'subtitle'=> 'required',
             'content'=> 'required',
             'category_id'=> ['required', 'exists:categories,id'],
             'published_at'=> ['nullable', 'date']
