@@ -51,6 +51,11 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
         ];
     }
 
+    public function getMediaDisk(): string
+    {
+        return 's3'; // Dein Laravel Cloud Bucket
+    }
+
     public function registerMediaConversions(?Media  $media = null): void
     {
         $this->addMediaConversion('avatar')

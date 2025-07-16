@@ -26,6 +26,11 @@ class Post extends Model implements HasMedia
         'published_at',
     ];
 
+    public function getMediaDisk(): string
+    {
+        return 's3'; // Dein Laravel Cloud Bucket
+    }
+
     public function registerMediaConversions(?Media  $media = null): void
     {
         $this->addMediaConversion('preview')
