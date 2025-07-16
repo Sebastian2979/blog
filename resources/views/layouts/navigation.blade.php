@@ -15,7 +15,7 @@
                 @auth
                     <a href="{{ route('post.create') }}" class="flex items-center">
                         <x-primary-button>
-                            Create Post
+                            Neuer Beitrag
                         </x-primary-button>   
                     </a>
                 
@@ -36,11 +36,11 @@
         
                             <x-slot name="content">
                                 <x-dropdown-link :href="route('profile.edit')">
-                                   Profile
+                                   Mein Profil
                                 </x-dropdown-link>
 
                                 <x-dropdown-link :href="route('myPosts')">
-                                   My Posts
+                                   Meine Beiträge
                                 </x-dropdown-link>
         
                                 <!-- Authentication -->
@@ -98,11 +98,11 @@
 
                 <div class="mt-3 space-y-1">
                     <x-responsive-nav-link :href="route('profile.edit')">
-                       Profile
+                       Mein Profil
                     </x-responsive-nav-link>
 
                     <x-responsive-nav-link :href="route('myPosts')">
-                       My Posts
+                       Meine Beiträge
                     </x-responsive-nav-link>
 
                     <!-- Authentication -->

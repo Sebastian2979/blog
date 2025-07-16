@@ -13,6 +13,6 @@
                 console.log(err)
             })
     }
-}" class="w-[320px] border-l px-8">
+}">
 {{ $slot }}
 </div>

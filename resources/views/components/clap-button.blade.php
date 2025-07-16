@@ -12,7 +12,7 @@
         .catch( error => {
             console.error(error);
         });
-}}" class="flex gap-2 mt-8 p-4 border-t border-b text-gray-500">
+}}" class="flex gap-2 p-4 border-t border-b text-gray-500">
     <button @click="clap()" class="text-gray-500 hover:text-gray-900">
         <template x-if="!hasClapped">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

@@ -66,7 +66,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
             ->singleFile();
 
         $this->addMediaCollection('tinymce-temp')
-        ->useDisk('public'); // Optional: expliziter Disk
+            ->useDisk('public'); // Optional: expliziter Disk
     }
 
     public function posts()

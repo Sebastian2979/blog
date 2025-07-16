@@ -2,12 +2,11 @@
     <div class="py-4">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                <h1 class="text-3xl mb-1">{{ $post->title }}</h1>
-                <h1 class="text-2xl mb-4 text-gray-700">{{ $post->subtitle }}</h1>
+                <h1 class="text-2xl md:text-3xl mb-1">{{ $post->title }}</h1>
+                <h2 class="text-1xl md:text-2xl mb-4 text-gray-700">{{ $post->subtitle }}</h2>
                 <!-- User Avatar -->
                 <div class="flex gap-4">
                     <x-user-avatar :user="$post->user" />
-                        
                     <div>
                         <x-follow-ctr :user="$post->user" class="flex gap-2">
                             <a href="{{ route('profile.show', $post->user)}}" class="hover:underline">
@@ -23,7 +22,7 @@
                         </x-follow-ctr>
                         <div class="flex gap-2 text-gray-500 text-sm">
 
-                            {{ $post->readTime() }} min read
+                            {{ $post->readTime() }} min Lesezeit
 
                             &middot;
 
@@ -35,13 +34,13 @@
                 @if($post->user_id === Auth::id())
                     <div class="py-4 mt-8 border-t border-gray-200">
                         <x-primary-button href="{{ route('post.edit', $post->slug) }}">
-                            Edit Post
+                            Bearbeiten
                         </x-primary-button>
                         <form class="inline-block" action="{{ route('post.destroy', $post) }}" method="post">
                             @csrf
                             @method('delete')
                             <x-danger-button>
-                                Delete Post
+                                Löschen
                             </x-danger-button>
                         </form>
                     </div>
@@ -84,7 +83,7 @@
                             <input type="hidden" name="post_id" value="{{ $post->id }}">
                             <div class="mt-4">
                                 <x-primary-button>
-                                    Submit
+                                    Absenden
                                 </x-primary-button>
                             </div>
                         </form>
@@ -94,7 +93,7 @@
                     @forelse ($comments as $comment)
                         <x-comment-item :comment="$comment" />
                     @empty
-                        <p class="text-sm text-gray-500">No Comments found</p>
+                        <p class="text-sm text-gray-500">Keine Kommentare gefunden</p>
                     @endforelse
                 </div>
             </div>

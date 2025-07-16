@@ -24,7 +24,16 @@ class PostUpdateRequest extends FormRequest
         return [
             'image'=> ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'title'=> 'required',
-            'subtitle'=> 'required',
+            'subtitle' => [
+            'required',
+            'string',
+                function ($attribute, $value, $fail) {
+                    $wordCount = str_word_count($value);
+                    if ($wordCount > 15) {
+                        $fail("The $attribute may not be greater than 15 words. (Current: $wordCount words)");
+                    }
+                },
+            ],
             'content'=> 'required',
             'category_id'=> ['required', 'exists:categories,id'],
             'published_at'=> ['nullable', 'date']

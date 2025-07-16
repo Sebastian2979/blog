@@ -3,7 +3,7 @@
         <a href="{{ route('dashboard') }}" 
         class="{{ request('category') 
         ? 'inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100' 
-        : 'inline-block px-4 py-3 text-white bg-blue-600 rounded-lg active' }}">All</a>
+        : 'inline-block px-4 py-3 text-white bg-blue-600 rounded-lg active' }}">Alle</a>
     </li>
     @foreach ($categories as $category)
         <li class="me-2">

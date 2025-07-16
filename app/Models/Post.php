@@ -30,11 +30,13 @@ class Post extends Model implements HasMedia
     {
         $this->addMediaConversion('preview')
             ->width(400)
-            ->nonQueued();
+            ->nonQueued()
+            ->performOnCollections('preview');
 
         $this->addMediaConversion('large')
             ->width(1200)
-            ->nonQueued();
+            ->nonQueued()
+            ->performOnCollections('large');
     }
 
     public function registerMediaCollections(): void
