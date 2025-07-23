@@ -2,7 +2,7 @@
     <div class="p-4">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-4 text-gray-900">
+                <div class="p-2">
                     <x-category-tabs />
                 </div>
             </div>
