@@ -14,9 +14,19 @@ Route::get('/@{username}/{post:slug}', [PostController::class,'show'])->name('po
 Route::get('/category/{category}', [PostController::class, 'category'])->name('post.byCategory');
 Route::post('/tinymce-upload', [PostController::class, 'tinymceUpload'])->name('tinymce.upload');
 
-Route::middleware('auth')->group(function () {
 
-    
+// Test routes
+Route::get('/check-proxy', function (\Illuminate\Http\Request $request) {
+    return response()->json([
+        'url' => $request->fullUrl(),
+        'secure' => $request->isSecure(),
+        'headers' => $request->headers->all(),
+    ]);
+});
+
+
+
+Route::middleware('auth')->group(function () {
 
     Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
     Route::post('/post/create', [PostController::class,'store'])->name('post.store');
