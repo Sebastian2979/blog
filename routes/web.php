@@ -16,13 +16,13 @@ Route::post('/tinymce-upload', [PostController::class, 'tinymceUpload'])->name('
 
 
 // Test routes
-Route::get('/check-proxy', function (\Illuminate\Http\Request $request) {
-    return response()->json([
-        'url' => $request->fullUrl(),
-        'secure' => $request->isSecure(),
-        'headers' => $request->headers->all(),
-    ]);
-});
+// Route::get('/check-proxy', function (\Illuminate\Http\Request $request) {
+//     return response()->json([
+//         'url' => $request->fullUrl(),
+//         'secure' => $request->isSecure(),
+//         'headers' => $request->headers->all(),
+//     ]);
+// });
 
 
 
