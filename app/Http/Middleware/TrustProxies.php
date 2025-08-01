@@ -11,7 +11,7 @@ class TrustProxies extends Middleware
      * Den Proxies vertrauen (z. B. deinem Nginx Proxy Manager).
      * Mit '*' vertraust du allen Proxies.
      */
-    protected $proxies = '85.215.226.9';
+    protected $proxies = '*';
 
     /**
      * Welche Header Laravel auswertet, um HTTPS zu erkennen.
