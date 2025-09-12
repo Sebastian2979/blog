@@ -36,7 +36,13 @@
 
             <!-- 👤 Footer: User-Published-Likes Section -->
             <div class="text-sm text-gray-400 flex gap-4 items-center pt-4">
-                <img src="{{ $post->user->imageUrl() }}" alt="{{ $post->user->name }}" class="w-8 h-8 rounded-full">
+
+                @if ($post->user->imageUrl())
+                    <img src="{{ $post->user->imageUrl() }}" alt="{{ $post->user->name }}" class="{{ $size }} rounded-full object-cover mb-4">
+                @else
+                    <img src="https://liccar.com/wp-content/uploads/png-transparent-head-the-dummy-avatar-man-tie-jacket-user.png" alt="Dummy" class="object-cover w-8 h-8 rounded-full">
+                @endif
+                
                 <div>
                     <a href="{{ route('profile.show', $post->user->username) }}" class="text-gray-600 hover:underline">
                         {{ $post->user->name }}
