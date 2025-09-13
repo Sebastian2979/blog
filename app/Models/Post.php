@@ -26,9 +26,13 @@ class Post extends Model implements HasMedia
         'published_at',
     ];
 
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
+
     public function getMediaDisk(): string
     {
-        return 's3'; // Dein Laravel Cloud Bucket
+        return 's3';
     }
 
     public function registerMediaConversions(?Media  $media = null): void
@@ -53,7 +57,7 @@ class Post extends Model implements HasMedia
     /**
      * Get the options for generating the slug.
      */
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('title')
@@ -91,7 +95,7 @@ class Post extends Model implements HasMedia
     public function imageUrl($conversionName = '')
     {
         $media = $this->getFirstMedia();
-        if($media->hasGeneratedConversion($conversionName)){
+        if ($media->hasGeneratedConversion($conversionName)) {
             return $media?->getUrl($conversionName);
         }
         return $media?->getUrl();

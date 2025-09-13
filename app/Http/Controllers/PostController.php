@@ -10,6 +10,7 @@ use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 
 class PostController extends Controller
@@ -25,7 +26,7 @@ class PostController extends Controller
             ->latest();
 
         $user = Auth::user();
-        if($user){
+        if ($user) {
             $ids = $user->following()->pluck('users.id');
             $query->whereIn('user_id', $ids);
         }
@@ -44,7 +45,7 @@ class PostController extends Controller
     {
         $categories = Category::get();
         return view('post.create', [
-            'categories'=> $categories
+            'categories' => $categories
         ]);
     }
 
@@ -55,10 +56,19 @@ class PostController extends Controller
     {
         $data = $request->validated();
         $data['user_id'] = Auth::id();
+
+        // published_at: vom Browser (Europe/Berlin) → UTC in DB
+        if (!empty($data['published_at'])) {
+            // akzeptiert sowohl "2025-09-13T11:00" als auch "2025-09-13 11:45:21"
+            $data['published_at'] = Carbon::parse($data['published_at'], 'Europe/Berlin')->utc();
+        }
+
+
         $post = Post::create($data);
+
         $post->addMediaFromRequest('image')->toMediaCollection();
         // TinyMCE-Uploads vom User an den Post verschieben
-        $user = User::find(Auth::id());
+        $user = Auth::user();
         $user->media()
             ->where('collection_name', 'tinymce-temp')
             ->each(function ($media) use ($post) {
@@ -77,9 +87,9 @@ class PostController extends Controller
     public function show(string $username, Post $post)
     {
         $comments = $post->comments()->with('user')->latest()->get();
-        
+
         return view('post.show', [
-            'post'=> $post,
+            'post' => $post,
             'comments' => $comments
         ]);
     }
@@ -89,10 +99,10 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        if($post->user_id !== Auth::id()){
+        if ($post->user_id !== Auth::id()) {
             abort(403);
         }
-        
+
         $categories = Category::get();
         return view('post.edit', [
             'post' => $post,
@@ -105,25 +115,44 @@ class PostController extends Controller
      */
     public function update(PostUpdateRequest $request, Post $post)
     {
-        if($post->user_id !== Auth::id()){
+        // Authorisierung
+        if ($post->user_id !== Auth::id()) {
             abort(403);
         }
+
         $data = $request->validated();
+
+        // published_at: Browser liefert lokale Zeit (Europe/Berlin) ohne TZ -> in UTC speichern
+        if (array_key_exists('published_at', $data)) {
+            if (!empty($data['published_at'])) {
+                // akzeptiert "YYYY-MM-DDTHH:MM" (datetime-local) und "YYYY-MM-DD HH:MM:SS"
+                $data['published_at'] = Carbon::parse($data['published_at'], 'Europe/Berlin')->utc();
+            } else {
+                // leeres Feld explizit als NULL speichern
+                $data['published_at'] = null;
+            }
+        }
+
+        // Update der Felder
         $post->update($data);
-        if($data['image'] ?? false){
+
+        // Bild nur anhängen, wenn tatsächlich eins hochgeladen wurde
+        if ($request->hasFile('image')) {
             $post->addMediaFromRequest('image')->toMediaCollection();
         }
+
         // TinyMCE-Uploads vom User an den Post verschieben
-        $user = User::find(Auth::id());
+        $user = Auth::user();
         $user->media()
             ->where('collection_name', 'tinymce-temp')
             ->each(function ($media) use ($post) {
                 $media->update([
-                    'model_type' => Post::class,
-                    'model_id' => $post->id,
+                    'model_type'      => Post::class,
+                    'model_id'        => $post->id,
                     'collection_name' => 'content-images',
                 ]);
             });
+
         return redirect()->route('myPosts');
     }
 
@@ -132,7 +161,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        if($post->user_id !== Auth::id()){
+        if ($post->user_id !== Auth::id()) {
             abort(403);
         }
         $post->delete();
@@ -140,7 +169,7 @@ class PostController extends Controller
     }
 
     public function category(Category $category)
-    { 
+    {
         $user = Auth::user();
 
         $query = $category->posts()
@@ -149,12 +178,12 @@ class PostController extends Controller
             ->withCount('claps')
             ->latest();
 
-        if($user){
+        if ($user) {
             $ids = $user->following()->pluck('users.id');
             $query->whereIn('user_id', $ids);
         }
 
-        $posts = $query->simplePaginate(5);    
+        $posts = $query->simplePaginate(5);
 
         return view('post.index', [
             'posts' => $posts,
@@ -180,10 +209,10 @@ class PostController extends Controller
         $request->validate([
             'file' => 'required|image|max:2048', // Max. 2MB
         ]);
-       
+
         // Bild dem User zuordnen
         $media = $request->user()->addMediaFromRequest('file')->toMediaCollection('tinymce-temp');
-        
+
         return response()->json([
             'location' => $media->getUrl()
         ], 200);

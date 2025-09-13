@@ -11,7 +11,6 @@
                 <div class="hidden md:flex justify-center p-4">
                     <x-category-tabs />
                 </div>
-
             </div>
             <div class="mt-4 text-gray-900">
                 @forelse($posts as $post)
