@@ -22,7 +22,7 @@ class PostUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image'=> ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'image'=> ['nullable', 'image', 'max:2048'],
             'title'=> 'required',
             'subtitle' => [
             'required',
@@ -36,7 +36,7 @@ class PostUpdateRequest extends FormRequest
             ],
             'content'=> 'required',
             'category_id'=> ['required', 'exists:categories,id'],
-            'published_at'=> ['nullable', 'date']
+            'published_at'=> ['required', 'nullable', 'date']
         ];
     }
 }
