@@ -13,7 +13,7 @@
                             <span class="text-sm font-medium">Bild auswählen</span>
                             <input x-ref="input" type="file" name="image" accept="image/*"
                                 x-on:change="handleChange($event)" class="mt-1 block w-full">
-                                <x-input-error :messages="$errors->get('image')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('image')" class="mt-2" />
                         </label>
 
                         <!-- Fehlermeldung -->

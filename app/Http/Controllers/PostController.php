@@ -31,10 +31,10 @@ class PostController extends Controller
             $query->whereIn('user_id', $ids);
         }
 
-
         $posts = $query->simplePaginate(5);
         return view("post.index", [
-            'posts' => $posts
+            'posts' => $posts,
+            'users' => User::inRandomOrder()->limit(6)->get()
         ]);
     }
 
