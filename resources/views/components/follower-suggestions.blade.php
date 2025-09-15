@@ -6,8 +6,7 @@
         @foreach($users as $user)
             <li class="bg-gray-100 p-4 rounded flex items-center hover:bg-gray-200 transition
                        w-full md:w-auto md:min-w-[240px]">
-                {{-- <a href="{{ route('profile.show', $user) }}" class="flex items-center gap-3"> --}}
-                <a href="{{ route('profile.show', ['user' => $user]) }}" class="flex items-center gap-3">
+                <a href="{{ route('profile.show', $post->user->username) }}" class="flex items-center gap-3">
                     @if ($user->imageUrl())
                         <img src="{{ $user->imageUrl() }}" alt="{{ $user->name }}" class="w-10 h-10 rounded-full object-cover">
                     @else
