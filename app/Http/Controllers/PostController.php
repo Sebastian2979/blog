@@ -31,10 +31,12 @@ class PostController extends Controller
             $query->whereIn('user_id', $ids);
         }
 
+        $usersWithPosts = User::has('posts')->inRandomOrder()->limit(6)->get();
+
         $posts = $query->simplePaginate(5);
         return view("post.index", [
             'posts' => $posts,
-            'users' => User::inRandomOrder()->limit(6)->get()
+            'users' => $usersWithPosts
         ]);
     }
 
@@ -185,9 +187,11 @@ class PostController extends Controller
 
         $posts = $query->simplePaginate(5);
 
+        $usersWithPosts = User::has('posts')->inRandomOrder()->limit(6)->get();
+
         return view('post.index', [
             'posts' => $posts,
-            'users' => User::inRandomOrder()->limit(6)->get()
+            'users' => $usersWithPosts
         ]);
     }
 
