@@ -1,5 +1,5 @@
 <div class="flex flex-col md:flex-row bg-white border border-gray-200 rounded-lg shadow-sm mb-4">
-    <!-- 📸 Bildbereich -->
+    <!-- Bildbereich -->
     <a class="flex-1 overflow-hidden" href="{{ route('post.show', [
             'username' => $post->user->username,
             'post' => $post->slug
@@ -9,10 +9,10 @@
              alt="{{ $post->title }}" />
     </a>
 
-    <!-- 📃 Textbereich -->
+    <!-- Textbereich -->
     <div class="flex-1">
         <div class="flex flex-col md:h-80 justify-between p-4">
-            <!-- 🏷️ Header: Titel, Subtitle, Button -->
+            <!-- Header: Titel, Subtitle, Button -->
             <div class="flex flex-col items-center text-center md:items-start md:text-left">
                 <a href="{{ route('post.show', [
                         'username' => $post->user->username,
@@ -34,15 +34,9 @@
                 </a>
             </div>
 
-            <!-- 👤 Footer: User-Published-Likes Section -->
+            <!-- Footer: User-Published-Likes Section -->
             <div class="text-sm text-gray-400 flex gap-4 items-center pt-4">
-
-                @if ($post->user->imageUrl())
-                    <img src="{{ $post->user->imageUrl() }}" alt="{{ $post->user->name }}" class="w-8 h-8 rounded-full object-cover">
-                @else
-                    <img src="https://liccar.com/wp-content/uploads/png-transparent-head-the-dummy-avatar-man-tie-jacket-user.png" alt="Dummy" class="object-cover w-8 h-8 rounded-full">
-                @endif
-                
+                <x-user-avatar :user="$post->user" :size="'w-8 h-8'" />
                 <div>
                     <a href="{{ route('profile.show', $post->user->username) }}" class="text-gray-600 hover:underline">
                         {{ $post->user->name }}

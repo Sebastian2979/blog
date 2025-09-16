@@ -1,12 +1,11 @@
 <x-app-layout>
-
     <!-- User Section -->
     <div class="md:max-w-6xl md:mx-auto md:m-4 bg-white">
         <x-follow-ctr :user="$user">
-                <div class="flex flex-col justify-center items-center h-80">
-                    <x-user-avatar :user="$user" size="w-36 h-36" />
-                    <h3 class="text-3xl mb-2">{{ $user->name }}</h4>
-                    <p class="mb-2">{{ $user->bio }}</p>
+                <div class="flex flex-col justify-center items-center h-80 space-y-2">
+                    <x-user-avatar :user="$user" size="w-24 h-24" />
+                    <h3 class="text-3xl">{{ $user->name }}</h4>
+                    <p>{{ $user->bio }}</p>
                     <p class="text-gray-500">
                         <span x-text="followersCount"></span> Followers
                     </p>
@@ -21,9 +20,6 @@
                 </div>
         </x-follow-ctr>
     </div>
-
-
-
     <!-- Post Section -->
     <div class="max-w-6xl mx-auto">
         <div>
@@ -34,6 +30,4 @@
             @endforelse
         </div>
     </div>
-
-
 </x-app-layout>
