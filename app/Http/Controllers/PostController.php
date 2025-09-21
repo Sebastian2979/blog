@@ -206,6 +206,7 @@ class PostController extends Controller
 
         return view('post.index', [
             'posts' => $posts,
+            'users' => User::has('posts')->inRandomOrder()->limit(6)->get()
         ]);
     }
 

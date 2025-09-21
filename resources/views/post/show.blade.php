@@ -28,6 +28,10 @@
 
                             {{ $post->created_at->format('M d, Y') }}
 
+                            &middot;
+
+                            {{ $post->comments->count() }} Kommentare
+
                         </div>
                     </div>
                 </div>
