@@ -5,7 +5,7 @@
                 <h1 class="text-2xl md:text-3xl mb-1">{{ $post->title }}</h1>
                 <h2 class="text-1xl md:text-2xl mb-4 text-gray-700">{{ $post->subtitle }}</h2>
                 <!-- User Avatar -->
-                <div class="flex gap-4">
+                <div class="flex gap-4 p-2">
                     <x-user-avatar :user="$post->user" />
                     <div>
                         <x-follow-ctr :user="$post->user" class="flex gap-2">
@@ -26,12 +26,7 @@
 
                             &middot;
 
-                            {{ $post->created_at->format('M d, Y') }}
-
-                            &middot;
-
-                            {{ $post->comments->count() }} Kommentare
-
+                            {{ $post->created_at->format('M d, Y') }} </br>
                         </div>
                     </div>
                 </div>
@@ -49,8 +44,21 @@
                         </form>
                     </div>
                 @endif
-                <!-- Clap Section Begin -->
-                <x-clap-button :post="$post" />
+                <!-- Clap and CommentCounter Section Begin -->
+                <div class="flex justify-between items-center border-t border-b">
+                    <x-clap-button :post="$post" />
+                    <div>
+                        @if($post->comments->count() == 1)
+                            <div class="bg-emerald-200 rounded p-2">
+                                {{ $post->comments->count() }} Kommentar
+                            </div>
+                        @else
+                            <div class="bg-emerald-200 rounded p-2">
+                                {{ $post->comments->count() }} Kommentare
+                            </div>
+                        @endif
+                    </div>
+                </div>
                 <!-- Clap Section End -->
                 <!-- Content Section Begin -->
                 <div class="mt-4">
