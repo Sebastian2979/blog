@@ -47,13 +47,13 @@
                 <!-- Clap and CommentCounter Section Begin -->
                 <div class="flex justify-between items-center border-t border-b">
                     <x-clap-button :post="$post" />
-                    <div>
+                    <div class="py-2 text-sm text-sky-700">
                         @if($post->comments->count() == 1)
-                            <div class="bg-emerald-200 rounded p-2">
+                            <div class="bg-sky-200 rounded p-2">
                                 {{ $post->comments->count() }} Kommentar
                             </div>
                         @else
-                            <div class="bg-emerald-200 rounded p-2">
+                            <div class="bg-sky-200 rounded p-2">
                                 {{ $post->comments->count() }} Kommentare
                             </div>
                         @endif
